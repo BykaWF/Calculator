@@ -1,28 +1,30 @@
 package calculator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Storage
 public class CalculatorRepo {
-    private List<Number> storage;
+    private List<Double> storage = new ArrayList<>();
 
-    public CalculatorRepo(List<Number> storage) {
-        this.storage = storage;
+    
+    public CalculatorRepo() {
+    	
     }
 
-    void save(Number result){
+    void save(Double result){
         storage.add(result);
     }
 
-    void clean(){
+    public void clean(){
         storage.clear();
     }
 
-    Number getLastResult(){
+    public Double getLastResult(){
         return storage.get(storage.size() -1);
     }
 
-    boolean isEmpty(){
+    public boolean isEmpty(){
         return storage.isEmpty();
     }
 }

@@ -2,89 +2,73 @@ package calculator;
 
 // Brain operation
 public class CalculatorService {
-    private Calculator calculator;
+	private Calculator calculator;
 
-    private CalculatorRepo calculatorRepo;
+	private CalculatorRepo calculatorRepo;
 
-    Number addition(){
-        Number res;
-        if(calculatorRepo.isEmpty()){
-            if(calculator.getA() instanceof Double || calculator.getB() instanceof Double ){
-                res = calculator.getA().doubleValue() + calculator.getB().doubleValue();
+	public CalculatorService(Calculator calculator, CalculatorRepo calculatorRepo) {
+		this.calculator = calculator;
+		this.calculatorRepo = calculatorRepo;
+	}
 
-            }else {
-                res = calculator.getA().intValue() + calculator.getB().intValue();
-            }
-        }else {
-            if(calculator.getA() instanceof Double){
-                res = calculatorRepo.getLastResult().doubleValue() + calculator.getA().doubleValue();
-            }else {
-                res = calculatorRepo.getLastResult().intValue() + calculator.getA().intValue();
-            }
-        }
-        calculatorRepo.save(res);
-        return res;
+	public Double addition() {
+		Double res;
+		if (calculatorRepo.isEmpty()) {
+			
+			res = calculator.getA() + calculator.getB();
+			
+		} else {
+			
+			res = calculatorRepo.getLastResult() + calculator.getA();
+		}
+		calculatorRepo.save(res);
+		return res;
 
-    }
+	}
 
-    Number subtraction(){
-        Number res;
-        if(calculatorRepo.isEmpty()){
-            if(calculator.getA() instanceof Double || calculator.getB() instanceof Double ){
-                res = calculator.getA().doubleValue() - calculator.getB().doubleValue();
+	public Double subtraction() {
+		Double res;
+		if (calculatorRepo.isEmpty()) {
 
-            }else {
-                res = calculator.getA().intValue() - calculator.getB().intValue();
-            }
-        }else {
-            if(calculator.getA() instanceof Double){
-                res = calculatorRepo.getLastResult().doubleValue() - calculator.getA().doubleValue();
-            }else {
-                res = calculatorRepo.getLastResult().intValue() - calculator.getA().intValue();
-            }
-        }
-        calculatorRepo.save(res);
-        return res;
-    }
+			res = calculator.getA() - calculator.getB();
 
-    Number multiplication(){
-        Number res;
-        if(calculatorRepo.isEmpty()){
-            if(calculator.getA() instanceof Double || calculator.getB() instanceof Double ){
-                res = calculator.getA().doubleValue() * calculator.getB().doubleValue();
+		} else {
 
-            }else {
-                res = calculator.getA().intValue() * calculator.getB().intValue();
-            }
-        }else {
-            if(calculator.getA() instanceof Double){
-                res = calculatorRepo.getLastResult().doubleValue() * calculator.getA().doubleValue();
-            }else {
-                res = calculatorRepo.getLastResult().intValue() * calculator.getA().intValue();
-            }
-        }
-        calculatorRepo.save(res);
-        return res;
-    }
+			res = calculatorRepo.getLastResult() - calculator.getA();
 
-    Number division(){
+		}
+		calculatorRepo.save(res);
+		return res;
+	}
 
-        Number res;
-        if(calculatorRepo.isEmpty()){
-            if(calculator.getA() instanceof Double || calculator.getB() instanceof Double ){
-                res = calculator.getA().doubleValue() / calculator.getB().doubleValue();
+	public Double multiplication() {
+		Double res;
+		if (calculatorRepo.isEmpty()) {
 
-            }else {
-                res = calculator.getA().intValue() / calculator.getB().intValue();
-            }
-        }else {
-            if(calculator.getA() instanceof Double){
-                res = calculatorRepo.getLastResult().doubleValue() / calculator.getA().doubleValue();
-            }else {
-                res = calculatorRepo.getLastResult().intValue() / calculator.getA().intValue();
-            }
-        }
-        calculatorRepo.save(res);
-        return res;
-    }
+			res = calculator.getA() * calculator.getB();
+
+		} else {
+
+			res = calculatorRepo.getLastResult() * calculator.getA();
+
+		}
+		calculatorRepo.save(res);
+		return res;
+	}
+
+	public Double division() {
+
+		Double res = null;
+		try {
+		if (calculatorRepo.isEmpty()) {
+			res = calculator.getA() / calculator.getB();
+		} else {
+			res = calculatorRepo.getLastResult() / calculator.getA();
+		}
+		}catch(ArithmeticException e) {
+			System.out.println("ArithmeticException " + e.getMessage());
+		}
+		calculatorRepo.save(res);
+		return res;
+	}
 }
